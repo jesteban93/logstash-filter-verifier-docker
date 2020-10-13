@@ -3,26 +3,35 @@ logstash-filter-verifier in a docker container
 
 using code from https://github.com/magnusbaeck/logstash-filter-verifier
 
-Building the container:
+## Building the container:
 
 ``` docker build . -t logstash-filter-verifier:latest ```
 
-Running the container:
+## Running the container:
 
 The local filters folder should follow this structure:
 
-```[+] filters
+```
+[+] filters
       |---- [+] pipeline_1
       |      |----> pipeline_1.conf
       |      |----> pipeline_1_1.conf
       |      |----> [+] tests
       |              |----> pipeline_1.json
-      |---- [+] pipeline_2```
+      |---- [+] pipeline_2
+```
 
 Then when runing the docker it will find the tests automatically and run them against its corresponding filter/s.
 
-``` docker run -d -v <FULL_PATH>/filters:/logstash/filters logstash-filter-verifier:latest ```
+### Running a single test
 
-Results of tests will be in docker logs
+``` docker run -rm -v <FULL_PATH>/filters:/logstash/filters logstash-filter-verifier:latest <test-name>```
+
+### Running all tests
+
+``` docker run -rm -v <FULL_PATH>/filters:/logstash/filters logstash-filter-verifier:latest all```
+
+
+All Results of tests will be printed on screen and can also be found in the docker logs.
 
 
