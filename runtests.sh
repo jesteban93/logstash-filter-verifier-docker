@@ -10,4 +10,4 @@ else
 test_name=$(ls /logstash/filters/$1*)
 echo "[+] Starting tests for $test_name"
 /usr/bin/logstash-filter-verifier --sockets /logstash/filters/$1*/tests/*.json /logstash/filters/$1*/*.conf
-fi 
+fi
