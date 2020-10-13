@@ -7,9 +7,21 @@ Building the container:
 
 ``` docker build . -t logstash-filter-verifier:latest ```
 
-Running the container
+Running the container:
 
-``` docker run -d -v <FULL_PATH>/filters:/logstash -v <FULL_PATH>/tests:/logstash/tests logstash-filter-verifier:latest ```
+The local filters folder should follow this structure:
+
+```[+] filters
+      |---- [+] pipeline_1
+      |      |----> pipeline_1.conf
+      |      |----> pipeline_1_1.conf
+      |      |----> [+] tests
+      |              |----> pipeline_1.json
+      |---- [+] pipeline_2```
+
+Then when runing the docker it will find the tests automatically and run them against its corresponding filter/s.
+
+``` docker run -d -v <FULL_PATH>/filters:/logstash/filters logstash-filter-verifier:latest ```
 
 Results of tests will be in docker logs
 
